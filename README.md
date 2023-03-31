@@ -44,3 +44,8 @@
 ## ライセンス
 
 LICENSEファイルをご覧ください。
+
+## その他
+
+- 内部では以下のプロジェクトをビルドしたライブラリを利用します
+   - [NIFCLOUD Mobile Backend Push Notification Android Plugin Project](https://github.com/NIFCLOUD-mbaas/NcmbFcmPlugin)

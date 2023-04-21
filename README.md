@@ -10,9 +10,19 @@
 ## 動作環境
 
 - Unity 2021.x
-- Android 8.x〜12.x, API level 26.0〜31.0
+- Android 8.x〜13.x, API level 26.0〜33.0
 - iOS 13.x〜16.x
 (※2023年04月時点)
+
+## 依存ライブラリ
+
+プッシュ通知機能を利用する場合は、以下のライブラリが必要です。
+(package内部に含まれているので、別途用意する必要はありません。)
+
+- Android Support Library
+- Google Play Service SDK
+- Firebase Service Library
+
 
 ### テクニカルサポート窓口対応バージョン
 
@@ -28,18 +38,8 @@
 
 ## 初期設定
 
-* 詳細については[ドキュメント](https://mbaas.nifcloud.com/doc/current/push/basic_usage_unity.html)を併せてご確認ください.
-* Android端末での利用には、ご自身のFirebase設定ファイルgoogle-services.jsonをダウンロードして、Cordovaプロジェクトのルートディレクトリに置く必要があります。設定ファイルのダウンロードについては[こちらのFirebaseサポートページ](https://support.google.com/firebase/answer/7015592)にて詳細をご覧ください。
-
-```
-- Your_unity_project/
-    platforms/
-    plugins/
-    www/
-    config.xml
-    google-services.json       <--
-    ...
-```
+* 必ず事前にncmb_unityをインポートしてください。また、ncmb_unityの初期化については[プッシュ通知ドキュメント](https://mbaas.nifcloud.com/doc/current/introduction/quickstart_unity.html)をご確認し、行なってください。
+* 詳細については[プッシュ通知ドキュメント](https://mbaas.nifcloud.com/doc/current/push/basic_usage_unity.html)を併せてご確認ください.
 
 ## ライセンス
 

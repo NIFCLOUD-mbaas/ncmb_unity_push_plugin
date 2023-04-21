@@ -1,0 +1,19 @@
+{
+  "name": "ncmb_unity_push_plugin",
+  "version": "1.0.0",
+  "displayName": "NCMB Unity Push Notification Plugin",
+  "description": "NIFCLOUD Mobile Backend Push Notification Plugin for Unity - build to work with Unity",
+  "unity": "2021.3",
+  "documentationUrl": "https://mbaas.nifcloud.com/doc/current/#/Unity",
+  "changelogUrl": "https://github.com/NIFCLOUD-mbaas/ncmb_unity_push_plugin/releases",
+  "licensesUrl": "https://github.com/NIFCLOUD-mbaas/ncmb_unity_push_plugin/blob/master/LICENSE",
+  "dependencies": {},
+ "category": "Libraries",
+ "keywords": [
+    "ncmb_unity_push_plugin"
+  ],
+  "author": {
+    "name": "NIFCLOUD Mobile Backend Developer Team",
+    "url": "https://mbaas.nifcloud.com"
+  }
+}

@@ -21,6 +21,12 @@ using System.Runtime.InteropServices;
 // using MiniJSON;
 using NCMB.Internal;
 
+// #if UNITY_ANDROID
+// using Unity.Notifications.Android;
+// #endif
+// #if UNITY_IOS
+using Unity.Notifications.iOS;
+
 namespace NCMB
 {
 	/// <summary>
@@ -97,7 +103,9 @@ namespace NCMB
 			#if UNITY_4_0 || UNITY_4_1 || UNITY_4_2 || UNITY_4_3 || UNITY_4_5 || UNITY_4_6 || UNITY_4_7
 			NotificationServices.ClearRemoteNotifications ();
 			#else
-			UnityEngine.iOS.NotificationServices.ClearRemoteNotifications ();
+			iOSNotificationCenter.RemoveAllScheduledNotifications();
+			iOSNotificationCenter.RemoveAllDeliveredNotifications();
+			iOSNotificationCenter.ApplicationBadge = 0;
 			#endif
 
 			#if !UNITY_EDITOR

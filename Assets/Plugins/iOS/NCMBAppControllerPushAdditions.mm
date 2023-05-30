@@ -42,7 +42,9 @@
 
 #include "UI/Keyboard.h"
 #include "UI/UnityView.h"
+#if __has_include(<UI/SplashScreen.h>)
 #include "UI/SplashScreen.h"
+#endif
 #include "Unity/DisplayManager.h"
 #include "PluginBase/AppDelegateListener.h"
 

@@ -81,9 +81,9 @@ namespace  NCMB
 				});
 
 				#if UNITY_IOS
-				iOSNotificationCenter.RemoveAllScheduledNotifications();
-				iOSNotificationCenter.RemoveAllDeliveredNotifications();
-				iOSNotificationCenter.ApplicationBadge = 0; 
+					iOSNotificationCenter.RemoveAllScheduledNotifications();
+					iOSNotificationCenter.RemoveAllDeliveredNotifications();
+					iOSNotificationCenter.ApplicationBadge = 0; 
 				#endif
 
 			}

@@ -298,7 +298,7 @@ extern "C"
 
 - (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
 {
-        notifyUnityError("OnRegistration", error);
+    notifyUnityError("OnRegistration", error);
 }
 
 - (void)application:(UIApplication*)application didReceiveRemoteNotification:(NSDictionary*)userInfo

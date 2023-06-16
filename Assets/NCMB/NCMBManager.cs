@@ -163,8 +163,8 @@ namespace NCMB
 		void ProcessNotification ()
 		{
 			// Payload data dictionary
-			iOSNotification notification = new iOSNotification();
-			IDictionary dd = notification.UserInfo;
+			iOSNotification[] scheduledNotifications = iOSNotificationCenter.GetScheduledNotifications();
+			IDictionary dd = scheduledNotifications[0].UserInfo;
 
 			// Payload key list
 			string[] kl = new string[] {
@@ -194,11 +194,11 @@ namespace NCMB
 
 			// Set message as alertBody
 			if (string.IsNullOrEmpty (vl [im])) {
-				vl [im] = notification.Body;
+				vl [im] = scheduledNotifications[0].Body;
 			}
 
 			// Create payload
-			NCMBPushPayload pl = new NCMBPushPayload (vl [0], vl [1], vl [2], vl [3], vl [4], vl [5], vl [6], notification.UserInfo);
+			NCMBPushPayload pl = new NCMBPushPayload (vl [0], vl [1], vl [2], vl [3], vl [4], vl [5], vl [6], scheduledNotifications[0].UserInfo);
 
 			// Notify
 			if (onNotificationReceived != null) {

@@ -1,4 +1,4 @@
-/*******
+﻿/*******
  Copyright 2017-2022 FUJITSU CLOUD TECHNOLOGIES LIMITED All Rights Reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -151,7 +151,9 @@ namespace NCMB
 				SaveOpenedPushId(null);
 			}
 
-			if (iOSNotificationCenter.ApplicationBadge > 0) {
+			iOSNotification[] scheduledNotifications = iOSNotificationCenter.GetScheduledNotifications();
+
+			if (scheduledNotifications.Length > 0) {
 				ProcessNotification ();
 				NCMBPushUtils pushUtils = new NCMBPushUtils ();
 				pushUtils.ClearAll ();

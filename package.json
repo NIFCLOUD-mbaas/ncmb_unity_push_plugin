@@ -1,6 +1,6 @@
 {
   "name": "ncmb_unity_push_plugin",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "displayName": "NCMB Unity Push Notification Plugin",
   "description": "NIFCLOUD Mobile Backend Push Notification Plugin for Unity - build to work with Unity",
   "unity": "2021.3",

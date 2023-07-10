@@ -12,7 +12,7 @@
 - Unity 2021.x
 - Android 8.x〜13.x, API level 26.0〜33.0
 - iOS 13.x〜16.x
-(※2023年04月時点)
+(※2023年07月時点)
 
 ## 依存ライブラリ
 
@@ -31,7 +31,7 @@
 ※なお、mobile backend にて大規模な改修が行われた際は、1年半以内のSDKであっても対応出来ない場合がございます。  
 その際は[informationブログ](https://mbaas.nifcloud.com/info/)にてお知らせいたします。予めご了承ください。  
 
-- v1.0.0 ～ (※2023年4月時点)
+- v1.0.0 ～ (※2023年7月時点)
 
 [開発ガイドライン](https://mbaas.nifcloud.com/doc/current/common/dev_guide.html#SDK%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6)をご覧ください。
 

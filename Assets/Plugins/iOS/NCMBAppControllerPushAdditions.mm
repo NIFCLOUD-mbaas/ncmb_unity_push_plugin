@@ -1,12 +1,12 @@
 /*******
  Copyright 2017-2022 FUJITSU CLOUD TECHNOLOGIES LIMITED All Rights Reserved.
- 
+
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
- 
+
  http://www.apache.org/licenses/LICENSE-2.0
- 
+
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -89,7 +89,7 @@ void notifyUnityError(const char * method, NSError * error)
 // Native code
 extern "C"
 {
-    
+
     // Use location or not
     bool getLocation;
     bool useAnalytics;
@@ -98,13 +98,13 @@ extern "C"
 
     // Save launch options for using later (after set key)
     NSDictionary * savedLaunchOptions;
-    
+
     void registerCommon()
     {
         if ([[NSProcessInfo processInfo] isOperatingSystemAtLeastVersion:(NSOperatingSystemVersion){8, 0, 0}]){
-            
+
             //iOS10未満での、DeviceToken要求方法
-            
+
             //通知のタイプを設定したsettingを用意
             UIUserNotificationType type = UIUserNotificationTypeAlert |
             UIUserNotificationTypeBadge |
@@ -112,24 +112,24 @@ extern "C"
             UIUserNotificationSettings *setting;
             setting = [UIUserNotificationSettings settingsForTypes:type
                                                         categories:nil];
-            
+
             //通知のタイプを設定
             [[UIApplication sharedApplication] registerUserNotificationSettings:setting];
-            
+
             //DeviceTokenを要求
             [[UIApplication sharedApplication] registerForRemoteNotifications];
         } else {
-            
+
             //iOS8未満での、DeviceToken要求方法
             [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
              (UIRemoteNotificationTypeAlert |
               UIRemoteNotificationTypeBadge |
               UIRemoteNotificationTypeSound)];
         }
-        
+
         #if __has_include(<UserNotifications/UserNotifications.h>)
         if ([[NSProcessInfo processInfo] isOperatingSystemAtLeastVersion:(NSOperatingSystemVersion){10, 0, 0}]){
-            
+
             //iOS10以上での、DeviceToken要求方法
             UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
             [center requestAuthorizationWithOptions:(UNAuthorizationOptionAlert |
@@ -144,29 +144,29 @@ extern "C"
                                           [[UIApplication sharedApplication] registerForRemoteNotifications];
                                       }
                                   }];
-            
+
         }
         #endif
     }
-    
+
     void registerNotification(BOOL _useAnalytics)
     {
         useAnalytics = _useAnalytics;
         getLocation = false;
         registerCommon();
     }
-    
+
     void registerNotificationWithLocation()
     {
         getLocation = true;
         registerCommon();
     }
-    
+
     void clearAll()
     {
         [[UIApplication sharedApplication] setApplicationIconBadgeNumber: 0];
     }
-    
+
     // installationのプロパティを生成して返却
     char* getInstallationProperty()
     {
@@ -183,7 +183,7 @@ extern "C"
         strcpy(res, [jsonstr UTF8String]);
         return res;
     }
-    
+
     void NCMBPushHandle(NSDictionary *userInfo)
     {
         // NCMB Handle Rich Push
@@ -191,21 +191,16 @@ extern "C"
         {
             [NCMBRichPushView handleRichPush:userInfo];
         }
-        
+
         // NCMB Handle Analytics
         if ([userInfo.allKeys containsObject:@"com.nifcloud.mbaas.PushId"])
         {
-            if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateInactive
-                || [[UIApplication sharedApplication] applicationState] == UIApplicationStateBackground
-                || appStartFromNofTap)
-            {
-                NSString * pushId = [userInfo objectForKey:@"com.nifcloud.mbaas.PushId"];
-                const char *pushIdConstChar = [pushId UTF8String];
-                notifyUnityWithClassName("NCMBManager","onAnalyticsReceived",pushIdConstChar);
-                appStartFromNofTap = false;
-            }
+            NSString * pushId = [userInfo objectForKey:@"com.nifcloud.mbaas.PushId"];
+            const char *pushIdConstChar = [pushId UTF8String];
+            notifyUnityWithClassName("NCMBManager","onAnalyticsReceived",pushIdConstChar);
+            appStartFromNofTap = false;
         }
-        
+
         if([userInfo objectForKey:@"aps"]){
             NSMutableDictionary *beforeUserInfo = [NSMutableDictionary dictionaryWithDictionary:userInfo];
             NSMutableDictionary *aps = [NSMutableDictionary dictionaryWithDictionary:[userInfo objectForKey:@"aps"]];
@@ -218,10 +213,10 @@ extern "C"
             }
             userInfo = (NSMutableDictionary *)beforeUserInfo;
         }
-        
+
         AppController_SendNotificationWithArg(kUnityDidReceiveRemoteNotification, userInfo);
     }
-    
+
 }
 
 // Implementation
@@ -242,7 +237,7 @@ extern "C"
  - (BOOL)application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions
  {
  savedLaunchOptions = [launchOptions copy];
- 
+
  printf_console("-> applicationDidFinishLaunching()\n");
  // get local notification
  if (&UIApplicationLaunchOptionsLocalNotificationKey != nil)
@@ -251,7 +246,7 @@ extern "C"
  if (notification)
  UnitySendLocalNotification(notification);
  }
- 
+
  // get remote notification
  if (&UIApplicationLaunchOptionsRemoteNotificationKey != nil)
  {
@@ -259,21 +254,21 @@ extern "C"
  if (notification)
  UnitySendRemoteNotification(notification);
  }
- 
+
  if ([UIDevice currentDevice].generatesDeviceOrientationNotifications == NO)
  [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
- 
+
  [DisplayManager Initialize];
- 
+
  _mainDisplay	= [[[DisplayManager Instance] mainDisplay] createView:YES showRightAway:NO];
  _window			= _mainDisplay->window;
- 
+
  [KeyboardDelegate Initialize];
- 
+
  [self createViewHierarchy];
  [self preStartUnity];
  UnityInitApplicationNoGraphics([[[NSBundle mainBundle] bundlePath]UTF8String]);
- 
+
  return YES;
  }
  */

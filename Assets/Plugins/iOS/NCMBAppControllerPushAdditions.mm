@@ -42,7 +42,9 @@
 
 #include "UI/Keyboard.h"
 #include "UI/UnityView.h"
+#if __has_include(<UI/SplashScreen.h>)
 #include "UI/SplashScreen.h"
+#endif
 #include "Unity/DisplayManager.h"
 #include "PluginBase/AppDelegateListener.h"
 
@@ -59,8 +61,6 @@
 // Unity default methods
 void UnitySendMessage( const char * className, const char * methodName, const char * param );
 void UnitySendDeviceToken( NSData* deviceToken );
-void UnitySendRemoteNotification( NSDictionary* notification );
-void UnitySendRemoteNotificationError( NSError* error );
 void UnitySendLocalNotification( UILocalNotification* notification );
 
 // Notify & Log methods
@@ -220,7 +220,6 @@ extern "C"
         }
         
         AppController_SendNotificationWithArg(kUnityDidReceiveRemoteNotification, userInfo);
-        UnitySendRemoteNotification(userInfo);//userInfoの値にNullは許容しない
     }
     
 }
@@ -299,8 +298,6 @@ extern "C"
 
 - (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
 {
-    UnitySendRemoteNotificationError( error );
-    
     notifyUnityError("OnRegistration", error);
 }
 

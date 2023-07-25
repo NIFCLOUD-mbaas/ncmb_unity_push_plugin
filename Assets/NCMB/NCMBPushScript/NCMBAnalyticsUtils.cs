@@ -24,6 +24,12 @@ using NCMB.Internal;
 using System.Linq;
 using UnityEngine;
 
+// #if UNITY_ANDROID
+// using Unity.Notifications.Android;
+// #endif
+// #if UNITY_IOS
+using Unity.Notifications.iOS;
+
 using System.Runtime.CompilerServices;
 
 [assembly:InternalsVisibleTo ("Assembly-CSharp-Editor")]
@@ -75,7 +81,7 @@ namespace  NCMB
 				});
 
 				#if UNITY_IOS
-					UnityEngine.iOS.NotificationServices.ClearRemoteNotifications ();
+					iOSNotificationCenter.RemoveAllDeliveredNotifications();
 				#endif
 
 			}

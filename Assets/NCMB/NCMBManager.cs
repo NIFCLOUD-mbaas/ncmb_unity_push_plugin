@@ -23,6 +23,12 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 
+// #if UNITY_ANDROID
+// using Unity.Notifications.Android;
+// #endif
+// #if UNITY_IOS
+using Unity.Notifications.iOS;
+
 //System.IO.FileInfo, System.IO.StreamReader, System.IO.StreamWriter
 using System;
 
@@ -145,7 +151,9 @@ namespace NCMB
 				SaveOpenedPushId(null);
 			}
 
-			if (UnityEngine.iOS.NotificationServices.remoteNotificationCount > 0) {
+			iOSNotification[] scheduledNotifications = iOSNotificationCenter.GetScheduledNotifications();
+
+			if (scheduledNotifications.Length > 0) {
 				ProcessNotification ();
 				NCMBPushUtils pushUtils = new NCMBPushUtils ();
 				pushUtils.ClearAll ();
@@ -155,7 +163,8 @@ namespace NCMB
 		void ProcessNotification ()
 		{
 			// Payload data dictionary
-			IDictionary dd = UnityEngine.iOS.NotificationServices.remoteNotifications [0].userInfo;
+			iOSNotification[] scheduledNotifications = iOSNotificationCenter.GetScheduledNotifications();
+			IDictionary dd = scheduledNotifications[0].UserInfo;
 
 			// Payload key list
 			string[] kl = new string[] {
@@ -185,11 +194,11 @@ namespace NCMB
 
 			// Set message as alertBody
 			if (string.IsNullOrEmpty (vl [im])) {
-				vl [im] = UnityEngine.iOS.NotificationServices.remoteNotifications [0].alertBody;
+				vl [im] = scheduledNotifications[0].Body;
 			}
 
 			// Create payload
-			NCMBPushPayload pl = new NCMBPushPayload (vl [0], vl [1], vl [2], vl [3], vl [4], vl [5], vl [6], UnityEngine.iOS.NotificationServices.remoteNotifications [0].userInfo);
+			NCMBPushPayload pl = new NCMBPushPayload (vl [0], vl [1], vl [2], vl [3], vl [4], vl [5], vl [6], scheduledNotifications[0].UserInfo);
 
 			// Notify
 			if (onNotificationReceived != null) {
